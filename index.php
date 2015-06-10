@@ -1,3 +1,4 @@
+<!-- test -->
 <!DOCTYPE html>
 <html ng-app="myApp">
 <body ng-cloak="">

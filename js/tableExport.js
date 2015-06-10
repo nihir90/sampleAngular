@@ -1,4 +1,5 @@
 (function($){
+
         $.fn.extend({
             tableExport: function(options) {
                 var defaults = {
