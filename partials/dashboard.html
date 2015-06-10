@@ -1,0 +1,152 @@
+
+	
+	
+<h4 class="blog-post-title">Products</h4>
+<hr/>
+<button type="button" class="btn btn-danger fa fa-plus" ng-click="open(product);">&nbsp;Add New Product</button>
+
+<div class="table-responsive">
+<div class="panel panel-primary">
+  <div class="panel-heading">List of products
+      <div class="sw-search" >
+            <div class="nav-search" id="nav-search">
+<span>
+<button type="button" class="btn btn-danger fa fa-plus" ng-click="exportPdf(true);">&nbsp;Export</button>
+</span>
+ PageSize: <span class="input-icon">
+               <select ng-model="entryLimit" class="form-control"  ng-init="entryLimit='6'"  ng-change= "pageSizeValue(entryLimit)">
+               <option value="">Select</option>
+                <option >5</option>
+                <option>10</option>
+                <option>20</option>
+                <option>50</option>
+                <option>100</option>
+            </select> 
+                    </span>
+
+                    Filter: <span class="input-icon">
+                        <input placeholder="Filter products list ..." class="nav-search-input" ng-model="filterProduct" ng-change=""  autocomplete="off" type="text" style="width:300px;" focus>
+                        <i class="search-icon fa fa-search nav-search-icon"></i>
+                    </span>
+ 
+            </div>
+        </div>
+    </div>
+  <div class="panel-body" id="customers" >
+<!--<div id="customers">
+    <table id="tab_customers" class="table table-striped">
+        <colgroup>
+            <col width="20%">
+                <col width="20%">
+                    <col width="20%">
+                        <col width="20%">
+        </colgroup>
+        <thead>
+            <tr class='warning'>
+                <th>Country</th>
+                <th>Population</th>
+                <th>Date</th>
+                <th>Age</th>
+                  <th>Age1</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Chinna</td>
+                <td>1,363,480,000</td>
+                <td>March 24, 2014</td>
+                <td>19.1</td><td>19.1</td>
+            </tr>
+            <tr>
+                <td>India</td>
+                <td>1,241,900,000</td>
+                <td>March 24, 2014</td>
+                <td>17.4</td><td>19.1</td>
+            </tr>
+            <tr>
+                <td>United States</td>
+                <td>317,746,000</td>
+                <td>March 24, 2014</td>
+                <td>4.44</td><td>19.1</td>
+            </tr>
+            <tr>
+                <td>Indonesia</td>
+                <td>249,866,000</td>
+                <td>July 1, 2013</td>
+                <td>3.49</td><td>19.1</td>
+            </tr>
+            <tr>
+                <td>Brazil</td>
+                <td>201,032,714</td>
+                <td>July 1, 2013</td>
+                <td>2.81</td><td>19.1</td>
+            </tr>
+        </tbody>
+    </table>
+</div> -->
+
+    <table class="table table-striped" id = "tableId"  >
+
+  <!--  <tr ng-show="products.length==0"><td style="vertical-align:middle;"><i class="fa fa-ban fa-3x"></i>&nbsp;No data found</td></tr>
+    <tr ng-hide="products.length>-1"><td style="vertical-align:middle;"><i class="fa fa-cog fa-3x fa-spin"></i>&nbsp;Loading</td></tr>
+    -->
+  <!--<tr><th ng-repeat="c in columns">{{c.text}}</th></tr> -->
+ <thead>
+<th> ID&nbsp;<a ng-click="sort_by('id',countId = countId + 1);" ng-init="countId=0"><i class="glyphicon glyphicon-sort"></i></a></th>
+            <th>Name&nbsp;<a ng-click="sort_by('name',count = count + 1);" ng-init="count=0"><i class="glyphicon glyphicon-sort"></i></a></th>
+            <th>Price&nbsp;<a ng-click="sort_by('price',count1 = count1 + 1);" ng-init="count1=0"><i class="glyphicon glyphicon-sort"></i></a></th>
+            <th>Stock&nbsp;<a ng-click="sort_by('stock',count2 = count2 + 1);" ng-init="count2=0"><i class="glyphicon glyphicon-sort"></i></a></th>
+            <th>Packing&nbsp;<a ng-click="sort_by('packing',count3 = count3 + 1);" ng-init="count3=0"><i class="glyphicon glyphicon-sort"></i></a></th>
+            <th>Description&nbsp;<a ng-click="sort_by('description',count4 = count4 + 1);" ng-init="count4=0"><i class="glyphicon glyphicon-sort"></i></a></th>
+            <th>Status&nbsp;<a ng-click=""></a></th>
+            <th>Action&nbsp;<a ng-click="sort_by('creditLimit');"></a></th>
+ </thead>
+  
+<tr  ng-init="limitTo= 10"  ng-repeat="c in products |pagination: curPage * entryLimit|filter:filterProduct | orderBy:predicate| limitTo:entryLimit" id="{{c.id}}" animate-on-change='c.packing + c.stock + c.price + c.description' ng-animate=" 'animate'">
+      <td>{{c.id}}</td><td>{{c.name}}</td><td>{{c.price}}</td><td>{{c.stock}}</td><td>{{c.packing}}</td><td>{{c.description}}</td>
+        <td>
+            <button class="btn" ng-class="{Active:'btn-success', Inactive:''}[c.status]" ng-click="changeProductStatus(c);">{{c.status}}</button>
+        </td>
+        <td style="width:100px">
+            <div class="btn-group">
+              <button type="button" class="btn btn-default fa fa-edit" ng-click="open(c);"></button>
+              <button type="button" class="btn btn-danger fa fa-trash-o" ng-click="deleteProduct(c);"></button>
+            </div>
+        </td>
+    </tr>
+    </table>
+  <div class="pagination pagination-centered" ng-show="products.length">
+<ul class="pagination-controle pagination">
+ <li>
+  <button type="button" class="btn btn-primary" ng-disabled="curPage == 0"
+ ng-click="curPage=curPage-1"> &lt; PREV</button>
+ </li>
+ <li>
+  <!--  <span >
+ Page {{curPage + 1}} of {{ test.length }} 
+</span>-->
+<span>
+    Page {{curPage + 1}} of {{ numberOfPages() }}
+</span>  
+
+ </li>
+ <li>
+ <button type="button" class="btn btn-primary"
+ ng-disabled="curPage >= products.length/pageSize - 1"
+ ng-click="curPage = curPage+1">NEXT &gt;</button>
+ </li>
+</ul>
+</div>
+    
+    
+    
+    </div>
+</div>
+           
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+              
